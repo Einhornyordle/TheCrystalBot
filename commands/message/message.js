@@ -9,8 +9,8 @@ module.exports = {
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
 		.addStringOption(option =>
 			option.setName('content')
-				.setDescription('The content of the message'))
-				.setRequired(true),
+				.setDescription('The content of the message')
+				.setRequired(true)),
 	async execute(interaction) {
 		await interaction.reply({ content: interaction.options.getString('content')});
 	}
