@@ -1,0 +1,31 @@
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+
+module.exports = {
+	data: new SlashCommandBuilder()
+		.setName('subscribe')
+		.setDescription('Subscribe to voice channel notifications')
+		.setIntegrationTypes(ApplicationIntegrationType.GuildInstall, ApplicationIntegrationType.UserInstall)
+		.setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
+		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+		.addUserOption(option => option.setName('user')
+			.setDescription('The user to subscribe to')
+			.setRequired(true)
+		),
+	async execute(interaction) {
+		const subscriptions = await interaction.client.Subscription.findAll({
+			where: {
+				subscriber: interaction.user.id,
+				target: interaction.options.getUser('user').id
+			}
+		});
+		const target = interaction.options.getUser('user');
+		if (subscriptions.length === 0) {
+			await interaction.client.Subscription.create({ subscriber: interaction.user.id, target: target.id });
+			await interaction.reply({ content: `You successfully subscribed to ${target}'s voice channel notifications`, ephemeral: true });
+		} else if (subscriptions.length === 1) {
+			await interaction.reply({ content: `You are already subscribed to ${target}'s voice channel notifications!`, ephemeral: true });
+		} else {
+			throw new Error("Mismatched subscription data!");
+		}
+	}
+};

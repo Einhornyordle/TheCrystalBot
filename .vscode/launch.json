@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "bun",
+            "internalConsoleOptions": "openOnSessionStart",
+            "request": "launch",
+            "name": "Debug File",
+            "program": "index.js",
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        },
+        {
+            "type": "bun",
+            "internalConsoleOptions": "openOnSessionStart",
+            "request": "launch",
+            "name": "Deploy Commands",
+            "program": "deploy-commands.js",
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        }
+    ]
+}
