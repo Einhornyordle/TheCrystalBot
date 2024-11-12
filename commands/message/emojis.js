@@ -11,7 +11,7 @@ module.exports = {
 		const emojis = await interaction.client.application.emojis.fetch();
 		await interaction.reply({
 			content: emojis.reduce(
-				(result, emoji) => result + `${emoji} \`${emoji}\`\n`,
+				(result, emoji) => result + `\n${emoji} \`${emoji}\``,
 				'**Emojis:**',
 			), ephemeral: true
 		});
