@@ -21,6 +21,8 @@ const client = new Client({
 	]
 });
 
+client.editcache = new Collection();
+
 await sequelize.authenticate();
 console.log('Connection has been established successfully.');
 
