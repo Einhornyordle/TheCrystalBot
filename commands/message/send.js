@@ -16,6 +16,10 @@ module.exports = {
 				.setDescription('A optional attachment to send with the message')
 				.setRequired(false)),
 	async execute(interaction) {
-		await interaction.reply({ content: interaction.options.getString('content'), files: [interaction.options.getAttachment('attachment')] });
+		if (interaction.options.getAttachment('attachment')) {
+			await interaction.reply({ content: interaction.options.getString('content'), files: [interaction.options.getAttachment('attachment')] });
+		} else {
+			await interaction.reply({ content: interaction.options.getString('content') });
+		}
 	}
 };
