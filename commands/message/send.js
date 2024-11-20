@@ -10,8 +10,12 @@ module.exports = {
 		.addStringOption(option =>
 			option.setName('content')
 				.setDescription('The content of the message')
-				.setRequired(true)),
+				.setRequired(true))
+		.addAttachmentOption(option =>
+			option.setName('attachment')
+				.setDescription('A optional attachment to send with the message')
+				.setRequired(false)),
 	async execute(interaction) {
-		await interaction.reply({ content: interaction.options.getString('content')});
+		await interaction.reply({ content: interaction.options.getString('content'), files: [interaction.options.getAttachment('attachment')] });
 	}
 };
