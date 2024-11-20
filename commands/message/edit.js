@@ -12,7 +12,18 @@ module.exports = {
 				.setDescription('The content of the new message')
 				.setRequired(true)),
 	async execute(interaction) {
-		await interaction.client.editcache[interaction.user.id].edit({ content: interaction.options.getString('content')});
-		await interaction.reply({ content: 'The previously selected message has been edited', ephemeral: true });
+		if (!interaction.client.selectedMessages[interaction.user.id]) {
+			await interaction.reply({ content: "You have to select a message to edit via the contextmenu first!", ephemeral: true });
+		}
+		else if (interaction.client.selectedMessages[interaction.user.id].author.id !== interaction.client.user.id) {
+			await interaction.reply({ content: "I can only edit my own messages!", ephemeral: true });
+		}
+		else if (interaction.client.selectedMessages[interaction.user.id].interactionMetadata.user.id !== interaction.user.id) {
+			await interaction.reply({ content: "You can only edit messages I've sent on your own request!", ephemeral: true });
+		}
+		else {
+			await interaction.client.selectedMessages[interaction.user.id].edit({ content: interaction.options.getString('content') });
+			await interaction.reply({ content: 'The previously selected message has been edited', ephemeral: true });
+		}
 	}
 };
