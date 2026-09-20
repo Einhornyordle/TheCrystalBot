@@ -12,7 +12,7 @@ module.exports = {
 			.setRequired(true)
 		),
 	async execute(interaction) {
-		const subscriptions = await interaction.client.Subscription.findAll({
+		const subscriptions = await interaction.client.Subscriptions.findAll({
 			where: {
 				subscriber: interaction.user.id,
 				target: interaction.options.getUser('user').id
@@ -20,7 +20,7 @@ module.exports = {
 		});
 		const target = interaction.options.getUser('user');
 		if (subscriptions.length === 0) {
-			await interaction.client.Subscription.create({ subscriber: interaction.user.id, target: target.id });
+			await interaction.client.Subscriptions.create({ subscriber: interaction.user.id, target: target.id });
 			await interaction.reply({ content: `You successfully subscribed to ${target}'s voice channel notifications`, ephemeral: true });
 		} else if (subscriptions.length === 1) {
 			await interaction.reply({ content: `You are already subscribed to ${target}'s voice channel notifications!`, ephemeral: true });

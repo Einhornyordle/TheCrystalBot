@@ -8,7 +8,7 @@ module.exports = {
 		.setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 	async execute(interaction) {
-		const subscriptions = await interaction.client.Subscription.findAll({
+		const subscriptions = await interaction.client.Subscriptions.findAll({
 			where: {
 				subscriber: interaction.user.id
 			}

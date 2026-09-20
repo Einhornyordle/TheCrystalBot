@@ -5,7 +5,6 @@ const { Client, Collection, GatewayIntentBits } = require('discord.js');
 
 const sequelize = new Sequelize({
 	dialect: 'mariadb',
-	host: 'db',
 	database: 'thecrystalbot',
 	username: 'thecrystalbot',
 	password: process.env['PASSWORD']
@@ -21,30 +20,47 @@ const client = new Client({
 	]
 });
 
-client.selectedMessages = new Collection();
+client.SelectedMessages = new Collection();
 
-await sequelize.authenticate();
-console.log('Connection has been established successfully.');
+try {
+	await sequelize.authenticate();
+	console.log('Connection has been established successfully.');
 
-client.Subscription = sequelize.define(
-	'subscription',
-	{
-		subscriber: {
-			type: DataTypes.BIGINT.UNSIGNED,
-			allowNull: false
+	client.Subscriptions = sequelize.define(
+		'subscription',
+		{
+			subscriber: {
+				type: DataTypes.BIGINT.UNSIGNED,
+				allowNull: false
+			},
+			target: {
+				type: DataTypes.BIGINT.UNSIGNED,
+				allowNull: false
+			},
 		},
-		target: {
-			type: DataTypes.BIGINT.UNSIGNED,
-			allowNull: false
+	);
+
+	client.Honeypods = sequelize.define(
+		'honeypot',
+		{
+			channel_id: {
+				type: DataTypes.BIGINT.UNSIGNED,
+				allowNull: false
+			},
 		},
-	},
-	{
-		freezeTableName: true
+	);
+
+	await sequelize.sync();
+	console.log('All models were synchronized successfully.');
+} catch (error) {
+	if (error.name === "SequelizeConnectionError" && process.env.NODE_ENV !== "production") {
+		console.error("DB connection failed!");
+		console.error(error);
 	}
-)
-
-await sequelize.sync();
-console.log('All models were synchronized successfully.');
+	else {
+		throw error;
+	}
+}
 
 client.commands = new Collection();
 const commandsFoldersPath = path.join(__dirname, 'commands');

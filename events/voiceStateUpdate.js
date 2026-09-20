@@ -4,7 +4,7 @@ module.exports = {
     name: Events.VoiceStateUpdate,
     async execute(oldState, newState) {
         if (!oldState.channelId && newState.channelId) {
-            const subscriptions = await newState.client.Subscription.findAll({
+            const subscriptions = await newState.client.Subscriptions.findAll({
                 where: {
                     target: newState.id
                 }

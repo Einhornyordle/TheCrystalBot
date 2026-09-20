@@ -23,7 +23,7 @@ module.exports = {
 	async execute(interaction) {
 		if (interaction.options.getSubcommand() === 'user') {
 			const target = interaction.options.getMember('user');
-			const subscriptions = await interaction.client.Subscription.findAll({
+			const subscriptions = await interaction.client.Subscriptions.findAll({
 				where: {
 					subscriber: interaction.user.id,
 					target: target.id
@@ -38,7 +38,7 @@ module.exports = {
 				throw new Error("Mismatched subscription data!");
 			}
 		} else if (interaction.options.getSubcommand() === 'all') {
-			const subscriptions = await interaction.client.Subscription.findAll({
+			const subscriptions = await interaction.client.Subscriptions.findAll({
 				where: {
 					subscriber: interaction.user.id
 				}

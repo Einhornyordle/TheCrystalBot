@@ -4,8 +4,9 @@
             "type": "bun",
             "internalConsoleOptions": "openOnSessionStart",
             "request": "launch",
-            "name": "Debug File",
+            "name": "Debug",
             "program": "index.js",
+            "env": {"NODE_ENV":"development"},
             "cwd": "${workspaceFolder}",
             "stopOnEntry": false,
             "watchMode": false
