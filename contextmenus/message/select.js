@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -8,6 +8,6 @@ module.exports = {
 		.setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 	async execute(interaction) {
 		interaction.client.SelectedMessages[interaction.user.id] = interaction.options.data[0].message;
-		await interaction.reply({ content: 'The message has been selected', ephemeral: true });
+		await interaction.reply({ content: 'The message has been selected', flags: MessageFlags.Ephemeral });
 	}
 };

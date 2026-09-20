@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,7 +13,7 @@ module.exports = {
 			content: emojis.reduce(
 				(result, emoji) => result + `\n${emoji} \`${emoji}\``,
 				'**Emojis:**',
-			), ephemeral: true
+			), flags: MessageFlags.Ephemeral
 		});
 	}
 };

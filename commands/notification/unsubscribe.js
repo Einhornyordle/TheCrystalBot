@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -31,9 +31,9 @@ module.exports = {
 			});
 			if (subscriptions.length === 1) {
 				subscriptions.pop().destroy();
-				await interaction.reply({ content: `You successfully unsubscribed from ${target}'s voice channel notifications`, ephemeral: true });
+				await interaction.reply({ content: `You successfully unsubscribed from ${target}'s voice channel notifications`, flags: MessageFlags.Ephemeral });
 			} else if (subscriptions.length === 0) {
-				await interaction.reply({ content: `You are not subscribed to ${target}'s voice channel notifications!`, ephemeral: true });
+				await interaction.reply({ content: `You are not subscribed to ${target}'s voice channel notifications!`, flags: MessageFlags.Ephemeral });
 			} else {
 				throw new Error("Mismatched subscription data!");
 			}
@@ -45,9 +45,9 @@ module.exports = {
 			});
 			if (subscriptions.length > 0) {
 				subscriptions.forEach(sub => sub.destroy());
-				await interaction.reply({ content: `You successfully unsubscribed from all voice channel notifications`, ephemeral: true });
+				await interaction.reply({ content: `You successfully unsubscribed from all voice channel notifications`, flags: MessageFlags.Ephemeral });
 			} else if (subscriptions.length === 0) {
-				await interaction.reply({ content: `You are not subscribed to any voice channel notifications!`, ephemeral: true });
+				await interaction.reply({ content: `You are not subscribed to any voice channel notifications!`, flags: MessageFlags.Ephemeral });
 			} else {
 				throw new Error("Mismatched subscription data!");
 			}

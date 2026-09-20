@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -13,6 +13,6 @@ module.exports = {
 				subscriber: interaction.user.id
 			}
 		});
-		await interaction.reply({ content: `**Subscriptions:**${subscriptions.reduce((prev, curr) => prev + `\n<@${curr.target}>`, '')}`, ephemeral: true });
+		await interaction.reply({ content: `**Subscriptions:**${subscriptions.reduce((prev, curr) => prev + `\n<@${curr.target}>`, '')}`, flags: MessageFlags.Ephemeral });
 	},
 };

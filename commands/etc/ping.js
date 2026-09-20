@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -8,6 +8,6 @@ module.exports = {
 		.setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel)
 		.setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 	async execute(interaction) {
-		await interaction.reply({ content: `Pong! (${interaction.client.ws.ping}ms)`, ephemeral: true });
+		await interaction.reply({ content: `Pong! (${interaction.client.ws.ping}ms)`, flags: MessageFlags.Ephemeral });
 	}
 };

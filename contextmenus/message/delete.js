@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -8,14 +8,14 @@ module.exports = {
 		.setContexts(InteractionContextType.Guild, InteractionContextType.BotDM, InteractionContextType.PrivateChannel),
 	async execute(interaction) {
 		if (interaction.options.data[0].message.author.id !== interaction.client.user.id) {
-			await interaction.reply({ content: "The selected message wasn't sent by me!", ephemeral: true });
+			await interaction.reply({ content: "The selected message wasn't sent by me!", flags: MessageFlags.Ephemeral });
 		}
 		else if (interaction.options.data[0].message.interactionMetadata.user.id !== interaction.user.id) {
-			await interaction.reply({ content: "You can only delete messages I've sent on your own request!", ephemeral: true });
+			await interaction.reply({ content: "You can only delete messages I've sent on your own request!", flags: MessageFlags.Ephemeral });
 		}
 		else {
 			await interaction.options.data[0].message.delete();
-			await interaction.reply({ content: 'The message has been deleted', ephemeral: true });
+			await interaction.reply({ content: 'The message has been deleted', flags: MessageFlags.Ephemeral });
 		}
 	}
 };

@@ -1,4 +1,4 @@
-const { ContextMenuCommandBuilder, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType } = require('discord.js');
+const { ContextMenuCommandBuilder, ApplicationCommandType, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, ActionRowBuilder, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, ComponentType, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new ContextMenuCommandBuilder()
@@ -26,7 +26,7 @@ module.exports = {
 			.addOptions(options);
 		const row = new ActionRowBuilder()
 			.addComponents(select);
-		const response = await interaction.reply({ content: `Select the emojis to react with:`, components: [row], ephemeral: true });
+		const response = await interaction.reply({ content: `Select the emojis to react with:`, components: [row], flags: MessageFlags.Ephemeral });
 		response.createMessageComponentCollector({ componentType: ComponentType.StringSelect }).on('collect', async selection => {
 			const message = await interaction.targetMessage.fetch();
 			const userReactions = message.reactions.cache.filter(reaction => reaction.users.cache.has(selection.client.user.id) && !selection.values.includes(reaction.emoji.id));

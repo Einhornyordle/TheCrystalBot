@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -15,9 +15,9 @@ module.exports = {
 		});
 		if (!result.length) {
 			interaction.client.Honeypods.create({ channel_id: interaction.channelId });
-			await interaction.reply({ content: 'Success, this channel is now a honeypot!', ephemeral: true });
+			await interaction.reply({ content: 'Success, this channel is now a honeypot!', flags: MessageFlags.Ephemeral });
 			return;
 		}
-		await interaction.reply({ content: 'This channel is already a honeypot!', ephemeral: true });
+		await interaction.reply({ content: 'This channel is already a honeypot!', flags: MessageFlags.Ephemeral });
 	}
 };

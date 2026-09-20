@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits } = require('discord.js');
+const { SlashCommandBuilder, ApplicationIntegrationType, InteractionContextType, PermissionFlagsBits, MessageFlags } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -14,10 +14,10 @@ module.exports = {
 			}
 		});
 		if (result.length) {
-			result.pop.destroy();
-			await interaction.reply({ content: 'Success, this channel is no longer a honeypot!', ephemeral: true });
+			result.pop().destroy();
+			await interaction.reply({ content: 'Success, this channel is no longer a honeypot!', flags: MessageFlags.Ephemeral });
 			return;
 		}
-		await interaction.reply({ content: 'This channel is not a honeypot!', ephemeral: true });
+		await interaction.reply({ content: 'This channel is not a honeypot!', flags: MessageFlags.Ephemeral });
 	}
 };
