@@ -17,7 +17,20 @@
             "type": "bun",
             "internalConsoleOptions": "openOnSessionStart",
             "request": "launch",
-            "name": "Deploy Commands (development)",
+            "name": "Debug (production)",
+            "program": "index.js",
+            "env": {
+                "NODE_ENV": "production"
+            },
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        },
+        {
+            "type": "bun",
+            "internalConsoleOptions": "openOnSessionStart",
+            "request": "launch",
+            "name": "Deploy Commands",
             "program": "deploy-commands.js",
             "env": {
                 "NODE_ENV": "development"
