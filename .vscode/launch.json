@@ -6,7 +6,9 @@
             "request": "launch",
             "name": "Debug",
             "program": "index.js",
-            "env": {"NODE_ENV":"development"},
+            "env": {
+                "NODE_ENV": "development"
+            },
             "cwd": "${workspaceFolder}",
             "stopOnEntry": false,
             "watchMode": false
@@ -15,8 +17,24 @@
             "type": "bun",
             "internalConsoleOptions": "openOnSessionStart",
             "request": "launch",
-            "name": "Deploy Commands",
+            "name": "Deploy Commands (development)",
             "program": "deploy-commands.js",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "cwd": "${workspaceFolder}",
+            "stopOnEntry": false,
+            "watchMode": false
+        },
+        {
+            "type": "bun",
+            "internalConsoleOptions": "openOnSessionStart",
+            "request": "launch",
+            "name": "Deploy Commands (production)",
+            "program": "deploy-commands.js",
+            "env": {
+                "NODE_ENV": "production"
+            },
             "cwd": "${workspaceFolder}",
             "stopOnEntry": false,
             "watchMode": false
